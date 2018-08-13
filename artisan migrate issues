@@ -1,4 +1,4 @@
-Exception:
+#Exception:
       PDOException::("SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'users' already exists")
       C:\xampp\htdocs\dynasty\vendor\laravel\framework\src\Illuminate\Database\Connection.php:458
 
@@ -9,7 +9,7 @@ Here are the steps I took to solve the same issue:
 => Then, again in the console,  Schema::drop('users')
 => At the end php artisan migrate and it all worked.
 
-For below Exception:
+#For below Exception:
 
 PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes")
 
