@@ -1,3 +1,3 @@
-# laravel_issues_faced
+# Issues I Faced in Laravel
 
 Issues faced during project implementaion
