@@ -1,0 +1,22 @@
+Exception: laravel 5.4 --> The page has expired due to inactivity. Please refresh and try again.But if I change the method to GET, it works fine.
+
+Solution:
+
+
+This problem comes from the CSRF token verification which fails. So either you're not posting one or you're posting an incorrect one.
+
+The reason it works for GET is that for a GET route in Laravel, there is no CSRF token posted.
+
+You can either post a CSRF token in your form by calling:
+
+{{ csrf_field() }}
+
+=========================================================================================
+THE BELOW ONE IS NOT A GOOD APPROACH:
+
+Or exclude your route (NOT RECOMMENDED DUE TO SECURITY) in app/Http/Middleware/VerifyCsrfToken.php:
+
+protected $except = [
+    'your/route'
+];
+=======================
