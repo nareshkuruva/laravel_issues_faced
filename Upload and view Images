@@ -1,0 +1,23 @@
+1) Make sure you have added enctype="multipart/form-data" in your form and a <input type="file"> with field name="image"
+
+2) Create a new folder named images in your laravel public folder.
+
+3) In your controller
+
+ if($request->hasfile('filename'))
+ {
+    $file = $request->file('filename');
+    $name=time().$file->getClientOriginalName();
+    $file->move(public_path().'/images/', $name);
+ }
+ ----
+ ----
+ ----
+ $user->image=$name;  //$user is model class like $user= new \App\User;
+
+ $user->save();
+
+4) In your view
+
+<img src="{{ asset('images/FILENAME.EXTENSION') }}"> 
+<img src="{{asset('images/'.$user['image'])}}" style="width:150px; height:150px;" />
