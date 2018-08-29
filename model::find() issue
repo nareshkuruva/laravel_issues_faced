@@ -19,3 +19,9 @@ class FamilyMembers extends Model
     public $primaryKey = 'family_member_id';
 }
 
+From the docs :
+Eloquent will also assume that each table has a primary key column named id. You may define a $primaryKey property to override
+this convention.
+
+http://laravel.com/docs/5.1/eloquent
+
