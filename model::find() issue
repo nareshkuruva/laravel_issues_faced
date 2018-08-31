@@ -1,13 +1,13 @@
-## Issue:
+Issue:
 When using ModelName::find($id) does the find function only search the database table for a column called id ?
 
 So if my index and auto-increment column is called family_member_id, I am getting an error like undefined column..
 
-## Ans:
+Ans:
 
 You can add a $primaryKey attribute to YOUR MODEL to specify a custom primary key name public $primarykey = 'family_member_id';
 
-## ex:
+ex:
 <?php
 
 namespace App;
@@ -19,7 +19,7 @@ class FamilyMembers extends Model
     public $primaryKey = 'family_member_id';
 }
 
-## From the docs :
+From the docs :
 > Eloquent will also assume that each table has a primary key column named id. You may define a $primaryKey property to override
 this convention.
 
