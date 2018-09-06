@@ -1,8 +1,8 @@
 
-=> ** Any **  HTML forms pointing to POST, PUT, or DELETE routes that are defined in the web routes file should include a CSRF token field.
+=> ## Any  HTML forms pointing to POST, PUT, or DELETE routes that are defined in the web routes file should include a CSRF token field.
    Otherwise, the request will be rejected. 
    
-=> Allowed memory size of 134217728 bytes exhausted (tried to allocate 65015808 bytes):
+=> ## Allowed memory size of 134217728 bytes exhausted (tried to allocate 65015808 bytes):
    
    Generally u get above error while performing DB::operations.
    
