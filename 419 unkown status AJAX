@@ -1,0 +1,28 @@
+
+Ajax call is making a post request, laravel sqwaks with a http exception.
+EDIT: Laravel 419 post error is usually related with api.php and token authorization
+So try to include the token on ajax body.
+
+Example:
+
+In my application,
+
+ Route::post('addFamilyName', 'FindFamilyController@addFamilyName');
+ 
+In view file,
+
+include {{ csrf_field() }} in form and call it in ajax form.
+
+function addFamilyName() {
+        $familyName = $("#txtFamilyName").val();
+        $.ajax({
+            type: 'POST',
+            url:'addFamilyName',
+            data: {'key': $familyName, '_token': $('input[name="_token"]').val() },
+            success:function(data){
+                console.log(data);        
+            }
+        });
+    }
+    
+    
