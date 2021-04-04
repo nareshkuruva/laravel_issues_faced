@@ -1,0 +1,187 @@
+In Powershell Administrator:
+
+wsl --set-default ubuntu
+wsl.exe --set-version (distro name) 2
+wsl.exe --set-version ubuntu 2
+
+wsl -l -v
+
+C:\Windows\system32> wsl  (Enter.. It enters into remote service)
+kvsnaresh@KNARESH-LP:/mnt/c/Windows/system32$
+ 
+
+
+Permission Denied: Docker+ubuntu
+---------------------------------
+The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied
+---------------------------------------
+
+Assuming that your user should be the owner, type the following command:
+
+sudo chown -R user:www-data /path/of/your/laravel/project
+Then give the user and webserver permissions as follows:
+
+sudo find /path/of/your/laravel/project -type f -exec chmod 664 {} \;
+then run:
+
+sudo find /path/of/your/laravel/project -type d -exec chmod 775 {} \;
+After you run those commands, go to your Laravel folder and give the webserver rights to read/write to your bootstrap/cache and storage folder:
+
+sudo chgrp -R www-data storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
+
+--------------------
+Example:
+sudo chown -R www-data:www-data connect-laravel
+sudo find cnew -type f -exec chmod 664 {} \;
+sudo find cnew -type d -exec chmod 775 {} \;
+
+sudo chgrp -R www-data storage bootstrap/cache  
+sudo chmod -R ug+rwx storage bootstrap/cache
+
+
+Cannot save file to WSL remote :
+---------------------------
+sudo chown -R <user-name> <directory_name>
+eg: sudo chown -R kvsnaresh connect-laravel
+
+
+------------------------------------------------------------------------
+Unable to locate Mix file: /css/app.css
+
+The error:
+Module build failed (from ./node_modules/postcss-loader/src/index.js):
+TypeError: getProcessedPlugins is not a function
+
+Upgrading node resolves the issue locally..
+
+Upgrade Node:
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+To upgrade to latest version (and not current stable) version, you can use
+
+sudo n latest
+
+----------------------------------------------------------
+
+Illuminate\Database\QueryException : could not find driver
+
+
+    php artisan cache:clear
+    php artisan view:clear
+    php artisan route:clear
+
+Install php mysql extension
+php 7.3 --- sudo apt-get install php7.3-mysql
+php 7.4 --- sudo apt-get install php7.4-mysql
+
+or 
+this might be an issue with mysqli PHP_EXTENSIONS in docker compose file
+
+-----------------------------------------------
+
+Your lock file does not contain a compatible set of packages. Please run composer update.
+
+Problem 1
+    - laravel/framework is locked to version v8.24.0 and an update of this package was not requested.
+    - laravel/framework v8.24.0 requires ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension.
+	
+Ans: That might be some packages missing or not installed composer in ubuntu... so run composer install in docker CLI	(or)
+
+run below commands to update/install packages in ubuntu
+
+sudo apt update
+sudo apt install curl php-cli php-mbstring git unzip
+
+sudo apt-get update
+sudo apt install php-xml  (php-xml has all the related packages including ext-dom)
+Most likely you are missing mbstring too. If you get the error, install this package as well with:
+
+sudo apt-get install php-mbstring
+
+
+--------------
+
+## To install the node js and npm, run:
+
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn
+
+--------------------------------
+
+Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: Name or service not known
+  
+  
+Ans:  The error show up when you test on local, right? You need to update /.env with the actual database connection parameters.
+ Better you should run Docker CLI.. it wont give any error.
+ .env database configuration is configured to docker host but you are running migrate in local..
+
+"HY000" is a general server error (see Server Error Codes and Messages in MySQL docs).
+"2002" is MySQL Client Error Code meaning "Can't connect to local MySQL server through socket" (see (Client Error Codes and Messages in MySQL docs).
+The driver specific error code and message ("php_network_getaddresses: getaddrinfo failed: Name or service not known") 
+tell you that PDO is not able to resolve the host name.
+The stack trace you attached, line 3, reveals that you did not specify the database connection parameters in the configuration file. 
+The error show up when you test on local, right? You need to update /.env with the actual database connection parameters.
+
+-------------------------------
+
+
+Blade templating (<livewire:...) happens BEFORE the browser loads the page, and Alpine templating happens AFTER the browser loads the page.
+
+Both x-for and x-if are templating done by Alpine, so due to the order of operations that Caleb mentioned (Livewire before, then Alpine after the page loads), 
+what you're trying to do will not work.
+
+
+------------------------
+
+There is no existing directory at “…/storage/logs” and its not buildable: Permission denied
+
+Sol:This might be the server still use and contain the old path record in cache.
+Clearing Configuration Cache, Application Cache and Route Cache.
+
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear 
+
+-------------------
+ Changing columns for table "webforms" requires Doctrine DBAL. Please install the doctrine/dbal package
+
+Run this :: composer require doctrine/dbal
+
+-------------------------
+view log file in terminal
+
+zcat – Displays all the contents of logfile.gz
+
+zmore – See the file in pages, without decompressing the files
+
+zgrep – Search inside a compressed file
+
+grep – Find all occurrences of a search term in a file or filter a log file
+
+tail – Output the last few lines of files
+
+head – View the very beginning of text files
+
+---------------------------------------
+Tailwind  Issues after deployment
+
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
+sudo n latest
+
+sudo yarn install
+sudo yarn dev
+
+----------------------------
